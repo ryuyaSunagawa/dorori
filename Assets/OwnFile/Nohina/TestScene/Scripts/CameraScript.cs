@@ -35,9 +35,9 @@ public class CameraScript : MonoBehaviour
 		//パッド入力かマウス入力かを判定
 		if( GameManager.Instance.padMode == true )
 		{
-			//ヨー代入
+			//パッド操作
+
 			float yaw = Input.GetAxis( "RightHorizontal" ) * padSensitivity;
-			//ピッチ代入
 			float pitch = Input.GetAxis( "RightVertical" ) * padSensitivity;
 
 			//カメラ回転
@@ -45,13 +45,13 @@ public class CameraScript : MonoBehaviour
 		}
 		else
 		{
-			//ヨー代入
+			//マウス操作
+
 			float yaw = Input.GetAxis( "Mouse X" ) * mouseSensitivity;
-			//ピッチ代入
 			float pitch = Input.GetAxis( "Mouse Y" ) * mouseSensitivity;
 
 			//カメラ回転
-			RotateCamera( yaw, pitch );
+			RotateCamera( yaw, -pitch );
 		}
     }
 
