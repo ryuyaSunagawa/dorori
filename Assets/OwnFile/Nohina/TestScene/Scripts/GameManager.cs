@@ -12,4 +12,5 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 	{
 		Debug.Log( "This is Singleton!" );
 	}
+
 }

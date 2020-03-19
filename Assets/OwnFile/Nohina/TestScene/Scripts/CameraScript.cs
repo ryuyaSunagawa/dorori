@@ -11,6 +11,7 @@ public class CameraScript : MonoBehaviour
 	//パッドの感度
 	[Range( 0, 20 )]
 	[SerializeField] float padSensitivity;
+
 	//マウスの感度
 	[Range( 0, 20 )]
 	[SerializeField] float mouseSensitivity;

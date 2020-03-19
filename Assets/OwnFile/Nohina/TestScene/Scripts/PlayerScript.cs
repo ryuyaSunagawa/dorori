@@ -14,23 +14,17 @@ public class PlayerScript : MonoBehaviour
 	//PlayerInformation取得
 	[SerializeField] TextMeshPro myTmp;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
-		
+		DrawPlayerInformation();
     }
 
 	private void FixedUpdate()
 	{
-
 		//プレイヤー移動
 		MoveProcessor();
+
 
 	}
 
@@ -39,9 +33,8 @@ public class PlayerScript : MonoBehaviour
 	{
 
 		//パッド操作
-		if( GameManager.Instance.padMode )
+		if( GameManager.Instance.padMode == true )
 		{
-
 			//パッド移動
 			float horizontal = Input.GetAxis( "LeftHorizontal" );
 			float vertical = Input.GetAxis( "LeftVertical" );
@@ -50,9 +43,8 @@ public class PlayerScript : MonoBehaviour
 			MovePlayer( horizontal, vertical );
 		}
 		//キーボード操作
-		else if( !GameManager.Instance.padMode )
+		else if( GameManager.Instance.padMode == false )
 		{
-
 			//キーボード移動
 			float horizontal = ReturnDirectFloat( "Horizontal" );
 			float vertical = ReturnDirectFloat( "Vertical" );
@@ -69,7 +61,6 @@ public class PlayerScript : MonoBehaviour
 		//キー水平(A,D)をA=-1、D=1で返す
 		if( direct == "Horizontal" )
 		{
-
 			if( Input.GetKey( KeyCode.A ) )
 			{
 				return -1.0f;
@@ -84,7 +75,6 @@ public class PlayerScript : MonoBehaviour
 		//キー(W,S)をS=-1、W=1で返す
 		else if( direct == "Vertical" )
 		{
-
 			if( Input.GetKey( KeyCode.S ) )
 			{
 				return -1.0f;
@@ -109,7 +99,6 @@ public class PlayerScript : MonoBehaviour
 	//押されたキーの数
 	int GetDownKeyNumber()
 	{
-
 		int downKeyNumber = 0;
 
 		if( Input.anyKey )
@@ -129,7 +118,15 @@ public class PlayerScript : MonoBehaviour
 	//プレイヤーの情報表示
 	void DrawPlayerInformation()
 	{
+		//実験的にRayを作ってみる
+		Ray ray = new Ray( transform.position, transform.forward );
+		Debug.DrawRay( ray.origin, ray.direction * 5, Color.blue );
+		Debug.DrawLine( transform.position, transform.position + transform.forward, Color.green );
+
+		//TextMeshProに描画
 		myTmp.GetComponent<TextMeshPro>().text = "Position = " + transform.position + ", \n"
-											   + "DownKeyNum = " + GetDownKeyNumber();
+											   + "DownKeyNum = " + GetDownKeyNumber() + "\n"
+											   + "Normalize = " + transform.forward + "\n"
+											   + "ray = " + ray.origin + ", " + ray.direction;
 	}
 }
